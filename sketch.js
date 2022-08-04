@@ -158,22 +158,22 @@ function blossom(){
   series.push(number)
   var posX = Math.random() * windowWidth;
   var posY = Math.random() * windowHeight;
-  if(Math.random()>0.5){
-    if(Math.random()>0.5){ //x变为0或最大值
+  if(Math.random()>=0.5){
+    if(Math.random()>=0.5){ //x变为0或最大值
       posX = 0;
     }else{
       posX = windowWidth-32;
     }
   }else{
-    if(Math.random()>0.5){ //y变为0或最大值
+    if(Math.random()>=0.5){ //y变为0或最大值
       posY = 0;
     }else{
-      posY = windowHeight-32;
+      posY = windowHeight-32; //
     }
   }
   posXs.push(posX);
   posYs.push(posY);
 }
-
+// Math.random() => [0, 1) => [0, 0.5), [0.5, 1)
 //min ≤ num ≤ max
 //Math.round(Math.random() * (max - min)) + min;
