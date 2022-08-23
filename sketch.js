@@ -15,15 +15,13 @@ const faceOptions = {
 };
 
 function preload() { //加载食物图片
-  //spritesheet = loadImage('Ghostpixxells_pixelfood.png'); 
-  // can = loadImage('farm-tool.png'); 
-  // lake = loadImage('lake.png'); 
   gras = loadImage('gras.png'); 
   flowers = loadImage('flowers_plants.png'); 
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight); //画布大小跟随窗口
+  //createCanvas(windowWidth, windowHeight); //画布大小跟随窗口
+  createCanvas(windowHeight*1.78, windowHeight); //画布大小跟随窗口
   gravity = createVector(0, 0.5); //设定重力
 
   //裁剪鲜花素材
@@ -41,7 +39,7 @@ function setup() {
 
   //准备camera
   video = createCapture(VIDEO);
-  video.size(windowWidth, windowHeight);
+  video.size(windowHeight*1.78, windowHeight);
   video.hide(); //让video显示在canvas上而不是堆叠元素
   faceapi = ml5.faceApi(video, faceOptions, faceReady); //调用api
 }
@@ -65,15 +63,19 @@ function draw() {
     } 
     for (let y = 0; y < N; y += 1){ //column
       image(gras, 0, y*16, 16, 16);
-      image(gras, windowWidth-16, y*16, 16, 16);
+      if (windowWidth < windowHeight*1.78){
+        image(gras, windowWidth-16, y*16, 16, 16);
+      }else{
+        image(gras, windowHeight*1.78-16, y*16, 16, 16);
+      }
+        
     } 
 
     //面部处理
     if (detections) { 
       //console.log('length:', detections.length);
       if (detections.length > 0) {//采集到面部图像 画出五官
-        // drawBox(detections);
-        drawLandmarks(detections);
+        //drawLandmarks(detections); 
         sitdown = second();
         //console.log('sitdown:', sitdown);
       }
@@ -84,11 +86,11 @@ function draw() {
         console.log('standup time:', standup - sitdown);
         if (standup - sitdown > 5){ //每站10s 产生鲜花
           console.log('🌹🌹🌹');
-          blossom()
+          blossom();
           sitdown = standup;
         }
         if (standup - sitdown < 0){ //异常值修正
-          sitdown = second()
+          sitdown = second();
           standup = second();
         }
       }
