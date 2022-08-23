@@ -63,7 +63,7 @@ function draw() {
     } 
     for (let y = 0; y < N; y += 1){ //column
       image(gras, 0, y*16, 16, 16);
-      if (windowWidth < windowHeight*1.78){
+      if (windowWidth <= windowHeight*1.78){
         image(gras, windowWidth-16, y*16, 16, 16);
       }else{
         image(gras, windowHeight*1.78-16, y*16, 16, 16);
